@@ -22,11 +22,6 @@ export class MoviesController {
     return this.moviesService.getAll();
   }
 
-  @Get('search')
-  search(@Query('year') searchingYear: string) {
-    return `we are searching for a movie with title :  ${searchingYear}`;
-  }
-
   @Get(':id')
   getOne(@Param('id') movieId: string): Promise<Movie> {
     console.log(typeof movieId);
@@ -34,7 +29,7 @@ export class MoviesController {
   }
 
   @Post()
-  create(@Body() movieData: CreateMovieDto) {
+  create(@Body() movieData: CreateMovieDto): Promise<Movie> {
     return this.moviesService.create(movieData);
   }
 
@@ -44,7 +39,10 @@ export class MoviesController {
   }
 
   @Patch(':id')
-  update(@Param('id') movieId: string, @Body() updateData: UpdateMovieDto) {
-    this.moviesService.update(movieId, updateData);
+  update(
+    @Param('id') movieId: string,
+    @Body() updateData: UpdateMovieDto,
+  ): Promise<Movie> {
+    return this.moviesService.update(movieId, updateData);
   }
 }
