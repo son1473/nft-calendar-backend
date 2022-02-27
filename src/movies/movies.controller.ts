@@ -18,7 +18,7 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  getAll(): Movie[] {
+  getAll(): Promise<Movie[]> {
     return this.moviesService.getAll();
   }
 
@@ -28,7 +28,7 @@ export class MoviesController {
   }
 
   @Get(':id')
-  getOne(@Param('id') movieId: number): Movie {
+  getOne(@Param('id') movieId: string): Promise<Movie> {
     console.log(typeof movieId);
     return this.moviesService.getOne(movieId);
   }
@@ -39,12 +39,12 @@ export class MoviesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') movieId: number): boolean {
+  remove(@Param('id') movieId: string): Promise<Movie> {
     return this.moviesService.deleteOne(movieId);
   }
 
   @Patch(':id')
-  update(@Param('id') movieId: number, @Body() updateData: UpdateMovieDto) {
+  update(@Param('id') movieId: string, @Body() updateData: UpdateMovieDto) {
     this.moviesService.update(movieId, updateData);
   }
 }

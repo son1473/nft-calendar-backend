@@ -30,7 +30,7 @@ describe('MoviesService', () => {
       genres: ['test'],
     });
     it('should return a movie', () => {
-      const movie = service.getOne(1);
+      const movie = service.getOne('1');
       expect(movie).toBeDefined();
     });
   });
